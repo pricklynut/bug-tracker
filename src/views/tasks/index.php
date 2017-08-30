@@ -1,3 +1,7 @@
+<?php
+use App\Helper\Html;
+?>
+
 <div class="container content">
     <h1>Список задач</h1>
 
@@ -6,16 +10,43 @@
             <thead>
                 <tr>
                     <th>#</th>
-                    <th>Имя пользователя</th>
-                    <th>Email</th>
-                    <th>Статус</th>
+                    <th>
+                        Имя пользователя
+                        <a href="<?= Html::currentUriWithQuery(['sort' => 'username_asc']) ?>">
+                            <span class="glyphicon glyphicon-arrow-up"></span> А
+                        </a>
+
+                        <a href="<?= Html::currentUriWithQuery(['sort' => 'username_desc']) ?>">
+                            <span class="glyphicon glyphicon-arrow-down"></span> а
+                        </a>
+                    </th>
+                    <th>
+                        Email
+                        <a href="<?= Html::currentUriWithQuery(['sort' => 'email_asc']) ?>">
+                            <span class="glyphicon glyphicon-arrow-up"></span> А
+                        </a>
+
+                        <a href="<?= Html::currentUriWithQuery(['sort' => 'email_desc']) ?>">
+                            <span class="glyphicon glyphicon-arrow-down"></span> а
+                        </a>
+                    </th>
+                    <th>
+                        Статус
+                        <a href="<?= Html::currentUriWithQuery(['sort' => 'status_asc']) ?>">
+                            <span class="glyphicon glyphicon-arrow-up"></span> А
+                        </a>
+
+                        <a href="<?= Html::currentUriWithQuery(['sort' => 'status_desc']) ?>">
+                            <span class="glyphicon glyphicon-arrow-down"></span> а
+                        </a>
+                    </th>
                 </tr>
             </thead>
 
             <tbody>
-                <?php foreach ($tasks as $task): ?>
+                <?php foreach ($tasks as $index => $task): ?>
                     <tr>
-                        <td><?= $task->getId() ?></td>
+                        <td><?= ($index + 1) ?></td>
                         <td><?= htmlspecialchars($task->getUsername()) ?></td>
                         <td><?= htmlspecialchars($task->getEmail()) ?></td>
                         <td><?= htmlspecialchars($task->getStatusLabel()) ?></td>

@@ -1,3 +1,7 @@
+<?php
+use App\Helper\Html;
+?>
+
 <nav aria-label="Page navigation">
     <ul class="pagination">
         <?php if (!$pager->isPreviousActive()): ?>
@@ -6,7 +10,10 @@
             </li>
         <?php else: ?>
             <li>
-                <a href="/tasks?page=<?= $pager->getPreviousPage() ?>"
+                <a href="<?= Html::currentUriWithQuery([
+                    'page' => $pager->getPreviousPage(),
+                    'sort' => isset($_GET['sort']) ? $_GET['sort'] : null,
+                ]) ?>"
                    aria-label="Previous">
                     <span aria-hidden="true">&laquo;</span>
                 </a>
@@ -19,7 +26,10 @@
                     <span><?= $i ?></span>
                 </li>
             <?php else: ?>
-                <li><a href="/tasks?page=<?= $i ?>"><?= $i ?></a></li>
+                <li><a href="<?= Html::currentUriWithQuery([
+                        'page' => $i,
+                        'sort' => isset($_GET['sort']) ? $_GET['sort'] : null,
+                    ]) ?>"><?= $i ?></a></li>
             <?php endif ?>
         <?php endfor ?>
 
@@ -29,7 +39,10 @@
             </li>
         <?php else: ?>
             <li>
-                <a href="/tasks?page=<?= $pager->getNextPage() ?>"
+                <a href="<?= Html::currentUriWithQuery([
+                    'page' => $pager->getNextPage(),
+                    'sort' => isset($_GET['sort']) ? $_GET['sort'] : null,
+                ]) ?>"
                    aria-label="Next">
                     <span aria-hidden="true">&raquo;</span>
                 </a>
