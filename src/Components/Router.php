@@ -29,7 +29,7 @@ class Router extends AbstractComponent
      */
     public function getController()
     {
-        return $this->controller;
+        return "\\App\\Controller\\".$this->controller;
     }
 
     /**
@@ -45,8 +45,8 @@ class Router extends AbstractComponent
         $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
         $uriParts = array_filter(explode('/', $uri));
 
-        $this->controller = isset($uriParts[0]) ? $uriParts[0] : null;
-        $this->action = isset($uriParts[1]) ? $uriParts[1] : null;
+        $this->controller = isset($uriParts[1]) ? ucfirst($uriParts[1]).'Controller' : null;
+        $this->action = isset($uriParts[2]) ? $uriParts[2].'Action' : null;
     }
 
 }
