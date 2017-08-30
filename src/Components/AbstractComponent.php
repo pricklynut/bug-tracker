@@ -9,15 +9,20 @@ abstract class AbstractComponent
 
     public function __construct($props = [])
     {
-        $this->container  = new Container();
+        $this->container = new Container();
 
         foreach ($props as $name => $value) {
-            $this->{$name} = $value;
+            if (property_exists(static::class, $name)) {
+                $this->{$name} = $value;
+            } else {
+                $this->container->{$name} = $value;
+            }
         }
     }
 
-    public function __set($name, $value)
+    public function getContainer()
     {
-        $this->container->{$name} = $value;
+        return $this->container;
     }
+
 }

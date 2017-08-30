@@ -5,10 +5,20 @@ class Connection extends AbstractComponent
 {
     private $conn;
 
+    protected $platform = 'mysql';
+
+    protected $host = '127.0.0.1';
+
+    protected $port = 3306;
+
+    protected $user;
+
+    protected $pass;
+
+    protected $dbname;
+
     public function __construct(array $props = [])
     {
-        $props = $this->setDefaults($props);
-
         parent::__construct($props);
 
         $this->open();
@@ -16,12 +26,12 @@ class Connection extends AbstractComponent
 
     public function open()
     {
-        if ($this->container->platform === 'mysql') {
+        if ($this->platform === 'mysql') {
             $this->conn = new \PDO(
-                "{$this->container->platform}:host={$this->container->host};"
-                ."port={$this->container->port};dbname={$this->container->dbname}",
-                $this->container->user,
-                $this->container->pass
+                "{$this->platform}:host={$this->host};"
+                ."port={$this->port};dbname={$this->dbname}",
+                $this->user,
+                $this->pass
             );
         } else {
             throw new \Exception("Unknown platform, mayby not implemented yet");
@@ -33,20 +43,4 @@ class Connection extends AbstractComponent
         return $this->conn;
     }
 
-    private function setDefaults($props)
-    {
-        if (empty($props['platform'])) {
-            $props['platform'] = 'mysql';
-        }
-
-        if (empty($props['user'])) {
-            $props['host'] = '127.0.0.1';
-        }
-
-        if (empty($props['port'])) {
-            $props['port'] = 3306;
-        }
-
-        return $props;
-    }
 }
