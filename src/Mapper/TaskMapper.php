@@ -48,7 +48,16 @@ class TaskMapper extends AbstractMapper
         $stmt->setFetchMode(\PDO::FETCH_CLASS, 'App\Entity\Task');
 
         return $stmt->fetchAll();
+    }
 
+    public function getTotalItemsCount()
+    {
+        $sql = "SELECT COUNT(id) FROM tasks";
+
+        $stmt = $this->db->getConn()->prepare($sql);
+        $stmt->execute();
+
+        return $stmt->fetchColumn();
     }
 
     public function insert($task)

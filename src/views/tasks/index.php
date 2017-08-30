@@ -25,4 +25,8 @@
         </table>
     <?php endif ?>
 
+    <?php if ($pager->hasPagination()): ?>
+        <?php include dirname(dirname(__FILE__)).DIRECTORY_SEPARATOR.'pager.php'; ?>
+    <?php endif ?>
+
 </div>
