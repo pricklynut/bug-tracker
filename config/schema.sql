@@ -1,0 +1,8 @@
+CREATE TABLE tasks (
+  id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  task TEXT NOT NULL,
+  image VARCHAR(255),
+  status ENUM('finished', 'new') NOT NULL DEFAULT 'new'
+) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
