@@ -46,7 +46,7 @@ use App\Helper\Html;
             <tbody>
                 <?php foreach ($tasks as $index => $task): ?>
                     <tr>
-                        <td><?= ($index + 1) ?></td>
+                        <td><?= ($pager->getOffset() + $index + 1) ?></td>
                         <td><?= htmlspecialchars($task->getUsername()) ?></td>
                         <td><?= htmlspecialchars($task->getEmail()) ?></td>
                         <td><?= htmlspecialchars($task->getStatusLabel()) ?></td>
