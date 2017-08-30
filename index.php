@@ -1,6 +1,6 @@
 <?php
 
-define('ROOT_DIR', dirname(dirname(__FILE__)));
+define('ROOT_DIR', dirname(__FILE__));
 
 spl_autoload_register(function ($class) {
     $srcDir = ROOT_DIR . DIRECTORY_SEPARATOR . 'src';
