@@ -50,6 +50,27 @@ class TaskMapper extends AbstractMapper
         return $stmt->fetchAll();
     }
 
+    public function findAllByLimitWithSort($sort, $limit = 0, $offset = 0)
+    {
+        if ($this->wrongSortCondition($sort)) {
+            return $this->findAllByLimit($limit, $offset);
+        }
+
+        $orderByClause = $this->buildOrderByClause($sort);
+
+        $sql = "SELECT id, username, email, task, status, image
+                FROM tasks {$orderByClause} LIMIT :limit OFFSET :offset";
+
+        $stmt = $this->db->getConn()->prepare($sql);
+        $stmt->bindValue(':limit', $limit, \PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, \PDO::PARAM_INT);
+
+        $stmt->execute();
+        $stmt->setFetchMode(\PDO::FETCH_CLASS, 'App\Entity\Task');
+
+        return $stmt->fetchAll();
+    }
+
     public function getTotalItemsCount()
     {
         $sql = "SELECT COUNT(id) FROM tasks";
@@ -77,6 +98,39 @@ class TaskMapper extends AbstractMapper
         $task->setId($stmt->lastInsertId());
 
         return $stmt->lastInsertId();
+    }
+
+    private function getFieldsWhiteList()
+    {
+        return ['username', 'email', 'status', 'image', 'task'];
+    }
+
+    private function wrongSortCondition($sort)
+    {
+        if (!is_string($sort)) {
+            return true;
+        }
+
+        $sortParts = explode('_', $sort);
+
+        if (count($sortParts) < 2) {
+            return true;
+        }
+
+        if (!in_array($sortParts[0], $this->getFieldsWhiteList())) {
+            return true;
+        }
+
+        if (!in_array($sortParts[1], ['asc', 'desc'])) {
+            return true;
+        }
+    }
+
+    private function buildOrderByClause($sort)
+    {
+        $sortParts = explode('_', $sort);
+
+        return 'ORDER BY ' . join(' ', $sortParts);
     }
 
 }

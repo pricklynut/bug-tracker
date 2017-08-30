@@ -9,6 +9,7 @@ class TasksController extends AbstractController
     {
         $title = 'Список задач';
         $page = isset($_GET['page']) ? $_GET['page'] : 1;
+        $sort = isset($_GET['sort']) ? $_GET['sort'] : null;
 
         $taskMapper = Application::getInstance()->task_mapper;
         $totalTasksCount = $taskMapper->getTotalItemsCount();
@@ -17,7 +18,7 @@ class TasksController extends AbstractController
         $pager->setCurrentPage($page);
         $pager->setTotalCount($totalTasksCount);
 
-        $tasks = $taskMapper->findAllByLimit($pager->getPerPage(), $pager->getOffset());
+        $tasks = $taskMapper->findAllByLimitWithSort($sort, $pager->getPerPage(), $pager->getOffset());
 
         $this->render('tasks/index.php', [
             'title' => $title,
