@@ -30,6 +30,15 @@ class Application
         $this->bootstrap();
     }
 
+    public function run()
+    {
+        $controllerName = $this->router->getController();
+        $actionName = $this->router->getAction();
+
+        $controller = new $controllerName();
+        $controller->{$actionName}();
+    }
+
     public static function getInstance($config = [])
     {
         if (empty(self::$instance)) {
@@ -55,12 +64,7 @@ class Application
                 $props = isset($config['props']) ? $config['props'] : [];
                 $dependencies = isset($config['depends']) ? $config['depends'] : [];
 
-                $component = new $className($props);
-                foreach ($dependencies as $dependency) {
-                    $component->container->{$dependency} = $c->{$dependency};
-                }
-
-                return $component;
+                return new $className($props, $dependencies);
             });
         }
     }
