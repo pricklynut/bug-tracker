@@ -29,7 +29,7 @@ class Router extends AbstractComponent
      */
     public function getController()
     {
-        return "\\App\\Controller\\".$this->controller;
+        return $this->controller;
     }
 
     /**

@@ -1,6 +1,9 @@
 <?php
 
 return [
+
+    'defaultController' => '\App\Controller\TasksController',
+
     'components' => [
         'db' => [
             'class' => 'App\Components\Connection',
@@ -13,5 +16,6 @@ return [
                 // 'platform' => 'pgsql'
             ],
         ],
+        
     ],
 ];

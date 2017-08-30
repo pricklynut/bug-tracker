@@ -20,6 +20,8 @@ class Application
      */
 	private $config;
 
+    private $defaultController = '\\App\\Controller\\TasksController';
+
     /**
      * Application constructor.
      * @param array $config
@@ -27,6 +29,11 @@ class Application
 	public function __construct($config = [])
     {
         $this->config = $config;
+
+        if (!empty($config['defaultController'])) {
+            $this->defaultController = $config['defaultController'];
+        }
+
         $this->bootstrap();
     }
 
@@ -35,7 +42,18 @@ class Application
         $controllerName = $this->router->getController();
         $actionName = $this->router->getAction();
 
+        if (empty($controllerName)) {
+            $controllerName = $this->defaultController;
+        } else {
+            $controllerName = '\\App\\Controller\\'.$controllerName;
+        }
+
         $controller = new $controllerName();
+
+        if (empty($actionName)) {
+            $actionName = $controller->getDefaultAction();
+        }
+
         $controller->{$actionName}();
     }
 
