@@ -3,6 +3,10 @@ namespace App\Entity;
 
 class Task
 {
+    const STATUS_FINISHED = 'finished';
+
+    const STATUS_NEW = 'new';
+
     /**
      * @var int
      */
@@ -127,6 +131,21 @@ class Task
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    public function getStatusLabel()
+    {
+        $labels = $this->getStatusLabels();
+
+        return isset($labels[$this->status]) ? $labels[$this->status] : null;
+    }
+
+    private function getStatusLabels()
+    {
+        return [
+            self::STATUS_NEW => 'Новая',
+            self::STATUS_FINISHED => 'Выполнена',
+        ];
     }
 
 }
