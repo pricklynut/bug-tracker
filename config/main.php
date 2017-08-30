@@ -16,6 +16,9 @@ return [
                 // 'platform' => 'pgsql'
             ],
         ],
-        
+        'task_mapper' => [
+            'class' => 'App\Mapper\TaskMapper',
+            'depends' => ['db'],
+        ],
     ],
 ];
