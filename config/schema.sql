@@ -7,13 +7,13 @@ CREATE TABLE tasks (
   status ENUM('finished', 'new') NOT NULL DEFAULT 'new'
 ) DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
 
-INSERT INTO tasks (username, email, task, status) VALUES ('user1', 'user1@example.com', 'Описание первой задачи', 'finished');
-INSERT INTO tasks (username, email, task) VALUES ('user2', 'user2@example.com', 'Описание второй задачи');
-INSERT INTO tasks (username, email, task) VALUES ('user1', 'user1@example.com', 'Описание третьей задачи');
-INSERT INTO tasks (username, email, task) VALUES ('user3', 'user3@example.com', 'Описание четвертой задачи');
-INSERT INTO tasks (username, email, task, status) VALUES ('user2', 'user2@example.com', 'Описание пятой задачи', 'finished');
-INSERT INTO tasks (username, email, task) VALUES ('user1', 'user1@example.com', 'Описание шестой задачи');
-INSERT INTO tasks (username, email, task) VALUES ('user1', 'user1@example.com', 'Описание седьмой задачи');
-INSERT INTO tasks (username, email, task) VALUES ('user3', 'user3@example.com', 'Описание восьмой задачи');
-INSERT INTO tasks (username, email, task) VALUES ('user2', 'user2@example.com', 'Описание девятой задачи');
-INSERT INTO tasks (username, email, task) VALUES ('user1', 'user1@example.com', 'Описание десятой задачи');
+INSERT INTO tasks (username, email, task, status) VALUES ('Владимир', 'vladimir@example.com', 'Описание первой задачи', 'finished');
+INSERT INTO tasks (username, email, task) VALUES ('Александр', 'alexander@example.com', 'Описание второй задачи');
+INSERT INTO tasks (username, email, task) VALUES ('Ирина', 'irina@example.com', 'Описание третьей задачи');
+INSERT INTO tasks (username, email, task) VALUES ('Андрей', 'andrey@example.com', 'Описание четвертой задачи');
+INSERT INTO tasks (username, email, task, status) VALUES ('Виталий', 'vitaliy@example.com', 'Описание пятой задачи', 'finished');
+INSERT INTO tasks (username, email, task) VALUES ('Дмитрий', 'dmitriy@example.com', 'Описание шестой задачи');
+INSERT INTO tasks (username, email, task) VALUES ('Анна', 'anna@example.com', 'Описание седьмой задачи');
+INSERT INTO tasks (username, email, task) VALUES ('Евгений', 'evgeniy@example.com', 'Описание восьмой задачи');
+INSERT INTO tasks (username, email, task) VALUES ('Роман', 'roman@example.com', 'Описание девятой задачи');
+INSERT INTO tasks (username, email, task) VALUES ('Елена', 'elena@example.com', 'Описание десятой задачи');
