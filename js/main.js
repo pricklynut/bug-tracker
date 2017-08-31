@@ -38,7 +38,7 @@ function readURL(input) {
         var reader = new FileReader();
 
         reader.onload = function (e) {
-            $('#task-image-preview').attr('src', e.target.result);
+            $('.task-image-preview').attr('src', e.target.result);
         }
 
         reader.readAsDataURL(input.files[0]);
