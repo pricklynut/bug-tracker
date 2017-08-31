@@ -27,6 +27,10 @@ use App\Helper\Html;
     </div>
 
     <div class="form-group">
+        <img src="/upload/original/<?= Html::encode($task->getImage()) ?>"
+             onerror="src='/images/picture-not-available.png'"
+             class="task-image-preview"
+             alt="предпросмотр изображения">
         <input type="file"
                class="form-control"
                id="taskForm-image"
@@ -70,7 +74,7 @@ use App\Helper\Html;
         <div class="panel-body">
             <img src="<?= '/upload/images/'.$task->getImage() ?>"
                  onerror="src='/images/picture-not-available.png'"
-                 class="pull-left"
+                 class="pull-left task-image-preview"
                  alt="предпросмотр загружаемого изображения"
                  id="task-image-preview">
             <p>

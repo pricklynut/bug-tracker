@@ -13,6 +13,11 @@ use App\Helper\Html;
             </h2>
         </div>
         <div class="panel-body">
+            <img src="/upload/original/<?= Html::encode($task->getImage()) ?>"
+                 style="width: 320px; padding-right: 24px;"
+                 onerror="src='/images/picture-not-available.png'"
+                 class="pull-left"
+                 alt="изображение к задаче">
             <p>
                 <?= Html::encode($task->getTask()) ?>
             </p>

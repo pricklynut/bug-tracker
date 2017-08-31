@@ -63,6 +63,16 @@ class TasksController extends AbstractController
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $this->loadFromPost($task, 'taskForm');
+            $tmpName = isset($_FILES['taskForm']['tmp_name']['image'])
+                ? $_FILES['taskForm']['tmp_name']['image'] : null;
+            $originalName = isset($_FILES['taskForm']['name']['image'])
+                ? $_FILES['taskForm']['name']['image'] : null;
+
+            if ($tmpName and $originalName) {
+                move_uploaded_file($tmpName, ROOT_DIR.'/upload/original/'.$originalName);
+                $task->setImage($originalName);
+            }
+
             // TODO: model validation
             $taskMapper = Application::getInstance()->task_mapper;
             $taskMapper->update($task);
