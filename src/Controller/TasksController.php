@@ -50,7 +50,7 @@ class TasksController extends AbstractController
             $this->saveImage($task);
             $taskMapper = Application::getInstance()->task_mapper;
             $taskMapper->insert($task);
-            $viewUri = '/tasks/view?='.$task->getId();
+            $viewUri = '/tasks/view?id='.$task->getId();
             header("Location: {$viewUri}");
         }
 
