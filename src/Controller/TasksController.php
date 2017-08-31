@@ -50,7 +50,8 @@ class TasksController extends AbstractController
             $this->saveImage($task);
             $taskMapper = Application::getInstance()->task_mapper;
             $taskMapper->insert($task);
-            // TODO: redirect to view page
+            $viewUri = '/tasks/view?='.$task->getId();
+            header("Location: {$viewUri}");
         }
 
         $this->render('tasks/create.php', [
@@ -62,6 +63,14 @@ class TasksController extends AbstractController
 
     public function editAction()
     {
+        $isAdmin = Application::getInstance()->loginService->isLogged();
+
+        if (!$isAdmin) {
+            header("HTTP/1.1 403 Forbidden" );
+            exit;
+            // TODO: 403 page template
+        }
+
         $id = isset($_GET['id']) ? $_GET['id'] : null;
         $task = $this->find($id);
         $validator = new Validator();
@@ -72,7 +81,8 @@ class TasksController extends AbstractController
             $this->saveImage($task);
             $taskMapper = Application::getInstance()->task_mapper;
             $taskMapper->update($task);
-            // TODO: redirect to view page
+            $viewUri = '/tasks/view?id='.$task->getId();
+            header("Location: {$viewUri}");
         }
 
         $this->render('tasks/update.php', [

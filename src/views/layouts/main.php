@@ -1,3 +1,7 @@
+<?php
+$isAdmin = \App\Application::getInstance()->loginService->isLogged();
+?>
+
 <!doctype html>
 <html lang="ru">
 <head>
@@ -22,7 +26,9 @@
             </div>
 
             <ul class="nav navbar-nav navbar-right">
-                <li><a href="/login">Вход для админа</a></li>
+                <?php if (!$isAdmin): ?>
+                    <li><a href="/login">Вход для админа</a></li>
+                <?php endif ?>
             </ul>
         </div>
     </nav>

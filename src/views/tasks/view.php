@@ -1,5 +1,7 @@
 <?php
 use App\Helper\Html;
+
+$isAdmin = App\Application::getInstance()->loginService->isLogged();
 ?>
 
 <div class="container content">
@@ -21,6 +23,12 @@ use App\Helper\Html;
             <p>
                 <?= Html::encode($task->getTask()) ?>
             </p>
+
+            <?php if ($isAdmin): ?>
+                <a href="/tasks/edit?id=<?= $task->getId() ?>" class="btn btn-primary">
+                   Редактировать
+                </a>
+            <?php endif ?>
         </div>
     </div>
 

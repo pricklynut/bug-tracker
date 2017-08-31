@@ -1,5 +1,7 @@
 <?php
 use App\Helper\Html;
+
+$isAdmin = \App\Application::getInstance()->loginService->isLogged();
 ?>
 
 <div class="container content">
@@ -57,6 +59,11 @@ use App\Helper\Html;
                             <a href="/tasks/view?id=<?= $task->getId() ?>">
                                 <span class="glyphicon glyphicon-eye-open"></span>
                             </a>
+                            <?php if ($isAdmin): ?>
+                                <a href="/tasks/edit?id=<?= $task->getId() ?>">
+                                    <span class="glyphicon glyphicon-pencil"></span>
+                                </a>
+                            <?php endif ?>
                         </td>
                     </tr>
                 <?php endforeach ?>
