@@ -17,4 +17,9 @@ class Html
         return $uri.'?'.$queryString;
     }
 
+    public static function encode($string)
+    {
+        return htmlspecialchars($string, ENT_QUOTES, 'UTF-8');
+    }
+
 }

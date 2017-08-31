@@ -40,6 +40,7 @@ use App\Helper\Html;
                             <span class="glyphicon glyphicon-arrow-down"></span> а
                         </a>
                     </th>
+                    <th></th>
                 </tr>
             </thead>
 
@@ -50,6 +51,11 @@ use App\Helper\Html;
                         <td><?= htmlspecialchars($task->getUsername()) ?></td>
                         <td><?= htmlspecialchars($task->getEmail()) ?></td>
                         <td><?= htmlspecialchars($task->getStatusLabel()) ?></td>
+                        <td>
+                            <a href="/tasks/view?id=<?= $task->getId() ?>">
+                                <span class="glyphicon glyphicon-eye-open"></span>
+                            </a>
+                        </td>
                     </tr>
                 <?php endforeach ?>
             </tbody>
