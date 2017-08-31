@@ -1,0 +1,9 @@
+.task-preview {
+    display: none;
+    padding: 24px 0;
+}
+
+#task-image-preview {
+    width: 320px;
+    padding-right: 24px;
+}

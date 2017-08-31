@@ -25,11 +25,7 @@ abstract class AbstractController
 
     protected function loadFromPost($model, $formName)
     {
-        $post = isset($_POST[$formName]) ? $_POST[$formName] : null;
-
-        if (empty($post)) {
-            return $model;
-        }
+        $post = isset($_POST[$formName]) ? $_POST[$formName] : [];
 
         foreach ($post as $field => $value) {
             if (property_exists(get_class($model), $field)) {

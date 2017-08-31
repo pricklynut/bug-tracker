@@ -1,4 +1,8 @@
-<form action="" method="POST" name="taskForm">
+<?php
+use App\Helper\Html;
+?>
+
+<form action="" method="POST" name="taskForm" enctype="multipart/form-data">
 
     <div class="form-group">
         <label for="taskForm-username">Имя автора</label>
@@ -6,7 +10,7 @@
                class="form-control"
                id="taskForm-username"
                name="taskForm[username]"
-               value="<?= $task->getUsername() ?>"
+               value="<?= Html::encode($task->getUsername()) ?>"
                placeholder="Введите имя"
                required>
     </div>
@@ -17,9 +21,16 @@
                class="form-control"
                id="taskForm-email"
                name="taskForm[email]"
-               value="<?= $task->getEmail() ?>"
+               value="<?= Html::encode($task->getEmail()) ?>"
                placeholder="username@example.com"
                required>
+    </div>
+
+    <div class="form-group">
+        <input type="file"
+               class="form-control"
+               id="taskForm-image"
+               name="taskForm[image]">
     </div>
 
     <div class="form-group">
@@ -29,7 +40,7 @@
                   id="taskForm-task"
                   rows="3"
                   placeholder="Введите описание задачи..."
-                  required><?= $task->getTask() ?></textarea>
+                  required><?= Html::encode($task->getTask()) ?></textarea>
     </div>
 
     <div class="form-group">
@@ -42,6 +53,29 @@
         </div>
     </div>
 
+    <a href="" class="btn btn-default pull-right" id="toggle-task-preview">Предпросмотр</a>
+
     <button type="submit" class="btn btn-primary">Сохранить</button>
 
 </form>
+
+<div class="task-preview" id="task-preview-container">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h2 class="panel-title">
+                Автор: <span id="task-username-preview"><?= Html::encode($task->getUsername()) ?></span>
+                (<span id="task-email-preview"><?= Html::encode($task->getEmail()) ?></span>)
+            </h2>
+        </div>
+        <div class="panel-body">
+            <img src="<?= '/upload/images/'.$task->getImage() ?>"
+                 onerror="src='/images/picture-not-available.png'"
+                 class="pull-left"
+                 alt="предпросмотр загружаемого изображения"
+                 id="task-image-preview">
+            <p>
+                <span id="task-task-preview"><?= Html::encode($task->getTask()) ?></span>
+            </p>
+        </div>
+    </div>
+</div>

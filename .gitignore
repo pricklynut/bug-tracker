@@ -1,5 +1,7 @@
 dayside/
-css/
-js/
+css/*
+!css/main.css
+js/*
+!js/main.js
 fonts/
 images/
