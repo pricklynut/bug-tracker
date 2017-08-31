@@ -26,5 +26,11 @@ return [
                 'perPage' => 3,
             ],
         ],
+        'loginService' => [
+            'class' => 'App\Components\LoginService',
+            'props' => [
+                'password' => '123',
+            ],
+        ],
     ],
 ];
