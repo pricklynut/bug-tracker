@@ -23,4 +23,22 @@ abstract class AbstractController
         include dirname(dirname(__FILE__)). DIRECTORY_SEPARATOR . 'views/layouts/main.php';
     }
 
+    protected function loadFromPost($model, $formName)
+    {
+        $post = isset($_POST[$formName]) ? $_POST[$formName] : null;
+
+        if (empty($post)) {
+            return $model;
+        }
+
+        foreach ($post as $field => $value) {
+            if (property_exists(get_class($model), $field)) {
+                $setter = 'set'.ucfirst($field);
+                $model->$setter($value);
+            }
+        }
+
+        return $model;
+    }
+
 }

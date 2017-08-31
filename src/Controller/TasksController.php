@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Application;
+use App\Entity\Task;
 
 class TasksController extends AbstractController
 {
@@ -29,7 +30,53 @@ class TasksController extends AbstractController
     public function viewAction()
     {
         $id = isset($_GET['id']) ? $_GET['id'] : null;
+        $task = $this->find($id);
 
+        $this->render('tasks/view.php', [
+            'task' => $task,
+            'title' => 'Просмотр задачи номер '.$task->getId(),
+        ]);
+    }
+
+    public function createAction()
+    {
+        $task = new Task();
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->loadFromPost($task, 'taskForm');
+            // TODO: model validation
+            $taskMapper = Application::getInstance()->task_mapper;
+            $taskMapper->insert($task);
+            // TODO: redirect to view page
+        }
+
+        $this->render('tasks/create.php', [
+            'task' => $task,
+            'title' => 'Создать задачу',
+        ]);
+    }
+
+    public function editAction()
+    {
+        $id = isset($_GET['id']) ? $_GET['id'] : null;
+        $task = $this->find($id);
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $this->loadFromPost($task, 'taskForm');
+            // TODO: model validation
+            $taskMapper = Application::getInstance()->task_mapper;
+            $taskMapper->update($task);
+            // TODO: redirect to view page
+        }
+
+        $this->render('tasks/update.php', [
+            'task' => $task,
+            'title' => 'Редактировать задачу #'.$task->getId(),
+        ]);
+    }
+
+    protected function find($id)
+    {
         $task = Application::getInstance()->task_mapper->findById($id);
         if (empty($task)) {
             header('HTTP/1.1 404 Not Found');
@@ -37,10 +84,7 @@ class TasksController extends AbstractController
             // TODO: 404 page template
         }
 
-        $this->render('tasks/view.php', [
-            'task' => $task,
-            'title' => 'Просмотр задачи номер '.$task->getId(),
-        ]);
+        return $task;
     }
 
 }

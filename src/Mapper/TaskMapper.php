@@ -86,7 +86,8 @@ class TaskMapper extends AbstractMapper
         $sql = "INSERT INTO tasks (username, email, task, status, image)
                 VALUES (:username, :email, :task, :status, :image)";
 
-        $stmt = $this->db->getConn()->prepare($sql);
+        $conn = $this->db->getConn();
+        $stmt = $conn->prepare($sql);
         $stmt->bindValue(':username', $task->getUsername(), \PDO::PARAM_STR);
         $stmt->bindValue(':email', $task->getEmail(), \PDO::PARAM_STR);
         $stmt->bindValue(':task', $task->getTask(), \PDO::PARAM_STR);
@@ -95,9 +96,10 @@ class TaskMapper extends AbstractMapper
 
         $stmt->execute();
 
-        $task->setId($stmt->lastInsertId());
+        $id = $conn->lastInsertId();
+        $task->setId($id);
 
-        return $stmt->lastInsertId();
+        return $id;
     }
 
     private function getFieldsWhiteList()

@@ -5,6 +5,8 @@ use App\Helper\Html;
 <div class="container content">
     <h1>Список задач</h1>
 
+    <a href="/tasks/create" class="btn btn-primary" style="margin-bottom: 24px;">Создать задачу</a>
+
     <?php if (!empty($tasks)): ?>
         <table class="table">
             <thead>

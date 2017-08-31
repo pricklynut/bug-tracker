@@ -35,7 +35,7 @@ class Task
     /**
      * @var string
      */
-    private $status;
+    private $status = self::STATUS_NEW;
 
     /**
      * @return string
@@ -131,6 +131,15 @@ class Task
     public function setId($id)
     {
         $this->id = $id;
+    }
+
+    public function checked()
+    {
+        if ($this->status === self::STATUS_FINISHED) {
+            return 'checked';
+        }
+
+        return '';
     }
 
     public function getStatusLabel()
