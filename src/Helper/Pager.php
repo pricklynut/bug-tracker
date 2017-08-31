@@ -39,6 +39,12 @@ class Pager extends AbstractComponent
      */
     public function getCurrentPage()
     {
+        if ($this->currentPage < 0) {
+            $this->currentPage = 1;
+        } elseif ($this->currentPage > $this->getTotalPages()) {
+            $this->currentPage = $this->getTotalPages();
+        }
+
         return $this->currentPage;
     }
 
@@ -127,7 +133,7 @@ class Pager extends AbstractComponent
      */
     public function getOffset()
     {
-        return ($this->currentPage - 1) * $this->perPage;
+        return ($this->getCurrentPage() - 1) * $this->perPage;
     }
 
     /**
@@ -176,7 +182,7 @@ class Pager extends AbstractComponent
      */
     public function isPreviousActive()
     {
-        return $this->currentPage > 1;
+        return $this->getCurrentPage() > 1;
     }
 
     /**
@@ -195,7 +201,7 @@ class Pager extends AbstractComponent
      */
     public function isNextActive()
     {
-        return $this->currentPage < $this->getTotalPages();
+        return $this->getCurrentPage() < $this->getTotalPages();
     }
 
     /**
