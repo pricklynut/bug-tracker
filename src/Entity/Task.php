@@ -149,6 +149,15 @@ class Task
         return isset($labels[$this->status]) ? $labels[$this->status] : null;
     }
 
+    public function getRules()
+    {
+        return [
+            'username' => ['notBlank', 'maxLength' => ['max' => 255]],
+            'email' => ['notBlank', 'maxLength' => ['max' => 255], 'isEmail'],
+            'task' => ['notBlank', 'maxLength' => ['max' => 64000]],
+        ];
+    }
+
     private function getStatusLabels()
     {
         return [

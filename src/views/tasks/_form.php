@@ -13,6 +13,15 @@ use App\Helper\Html;
                value="<?= Html::encode($task->getUsername()) ?>"
                placeholder="Введите имя"
                required>
+        <div id="taskForm-username-error" class="text-danger">
+            <?php if (!empty($validator->getError('username'))): ?>
+                <ul>
+                    <?php foreach ($validator->getError('username') as $error): ?>
+                        <li><?= Html::encode($error) ?></li>
+                    <?php endforeach ?>
+                </ul>
+            <?php endif ?>
+        </div>
     </div>
 
     <div class="form-group">
@@ -24,6 +33,15 @@ use App\Helper\Html;
                value="<?= Html::encode($task->getEmail()) ?>"
                placeholder="username@example.com"
                required>
+        <div id="taskForm-email-error" class="text-danger">
+            <?php if (!empty($validator->getError('email'))): ?>
+                <ul>
+                    <?php foreach ($validator->getError('email') as $error): ?>
+                        <li><?= Html::encode($error) ?></li>
+                    <?php endforeach ?>
+                </ul>
+            <?php endif ?>
+        </div>
     </div>
 
     <div class="form-group">
@@ -45,6 +63,16 @@ use App\Helper\Html;
                   rows="3"
                   placeholder="Введите описание задачи..."
                   required><?= Html::encode($task->getTask()) ?></textarea>
+
+        <div id="taskForm-task-error" class="text-danger">
+            <?php if (!empty($validator->getError('task'))): ?>
+                <ul>
+                    <?php foreach ($validator->getError('task') as $error): ?>
+                        <li><?= Html::encode($error) ?></li>
+                    <?php endforeach ?>
+                </ul>
+            <?php endif ?>
+        </div>
     </div>
 
     <div class="form-group">

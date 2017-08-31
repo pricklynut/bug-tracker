@@ -2,6 +2,7 @@
 namespace App\Controller;
 
 use App\Application;
+use App\Components\Validator;
 use App\Entity\Task;
 
 class TasksController extends AbstractController
@@ -41,12 +42,12 @@ class TasksController extends AbstractController
     public function createAction()
     {
         $task = new Task();
+        $validator = new Validator();
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->loadFromPost($task, 'taskForm');
+        $this->loadFromPost($task, 'taskForm');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' and $validator->validate($task)) {
             $this->saveImage($task);
-
-            // TODO: model validation
             $taskMapper = Application::getInstance()->task_mapper;
             $taskMapper->insert($task);
             // TODO: redirect to view page
@@ -55,6 +56,7 @@ class TasksController extends AbstractController
         $this->render('tasks/create.php', [
             'task' => $task,
             'title' => 'Создать задачу',
+            'validator' => $validator,
         ]);
     }
 
@@ -62,12 +64,12 @@ class TasksController extends AbstractController
     {
         $id = isset($_GET['id']) ? $_GET['id'] : null;
         $task = $this->find($id);
+        $validator = new Validator();
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $this->loadFromPost($task, 'taskForm');
+        $this->loadFromPost($task, 'taskForm');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST' and $validator->validate($task)) {
             $this->saveImage($task);
-
-            // TODO: model validation
             $taskMapper = Application::getInstance()->task_mapper;
             $taskMapper->update($task);
             // TODO: redirect to view page
@@ -76,6 +78,7 @@ class TasksController extends AbstractController
         $this->render('tasks/update.php', [
             'task' => $task,
             'title' => 'Редактировать задачу #'.$task->getId(),
+            'validator' => $validator,
         ]);
     }
 
