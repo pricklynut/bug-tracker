@@ -98,6 +98,13 @@ class TasksController extends AbstractController
         $originalName = isset($_FILES['taskForm']['name']['image'])
             ? $_FILES['taskForm']['name']['image'] : null;
 
+        if (!in_array(
+                $_FILES['taskForm']['type']['image'],
+                ['image/gif', 'image/jpeg', 'image/png']
+        )) {
+            return;
+        }
+
         if ($tmpName and $originalName) {
             move_uploaded_file($tmpName, ROOT_DIR.'/upload/original/'.$originalName);
             $task->setImage($originalName);
